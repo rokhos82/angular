@@ -1,5 +1,7 @@
 var ccg = {};
 
+ccg.title = "CCIT Support System";
+
 ccg.ticket = function(user,dept,desc) {
 	this.user = user;
 	this.department = dept;

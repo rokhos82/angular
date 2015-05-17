@@ -4,6 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css\bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="css\starter-template.css" />
+	<link rel="stylesheet" type="text/css" href="css\ccg.css" />
 	<title>CCIT Support Tickets</title>
 </head>
 <body ng-controller="TicketSystemController as ticketCtrl">
@@ -41,12 +42,13 @@
 		<div class="row">
 			<div class="col-lg-12 table-responsive">
 				<table class="table table-hover">
+					<caption>These are the tickets that are still active for the current technician.</caption>
 					<thead>
 						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Created On</td></tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="ticket in ticketCtrl.tickets | filter:{resolved:false}" ng-controller="TicketPanel as panel">
-							<td>{{ticket.user}}</td><td>{{ticket.department}}</td><td>{{ticket.description}}</td><td>{{ticket.createdOn | date:'yyyy-MM-dd'}}</td><td><button class="btn btn-primary">Resolve</button></td></td>
+							<td class="ccg-col-user">{{ticket.user}}</td><td class="ccg-col-dept">{{ticket.department}}</td><td class="ccg-col-desc">{{ticket.description}}</td><td class="ccg-col-date">{{ticket.createdOn | date:'yyyy-MM-dd'}}</td><td class="ccg-col-btn"><button class="btn btn-primary">Resolve</button></td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -60,12 +62,13 @@
 		<div class="row">
 			<div class="col-lg-12 table-responsive">
 				<table class="table table-hover">
+					<caption>These are the tickets that have been closed by the current technician.</caption>
 					<thead>
 						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Resolved On</td></tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="ticket in ticketCtrl.tickets | filter:{resolved:true}" ng-controller="TicketPanel as panel">
-							<td>{{ticket.user}}</td><td>{{ticket.department}}</td><td>{{ticket.description}}</td><td>{{ticket.resolvedOn | date:'yyyy-MM-dd'}}</td><td><button class="btn btn-warning">Reopen</button></td></td>
+							<td class="ccg-col-user">{{ticket.user}}</td><td class="ccg-col-dept">{{ticket.department}}</td><td class="ccg-col-desc">{{ticket.description}}</td><td class="ccg-col-date">{{ticket.resolvedOn | date:'yyyy-MM-dd'}}</td><td class="ccg-col-btn"><button class="btn btn-warning">Reopen</button></td></td>
 						</tr>
 					</tbody>
 				</table>

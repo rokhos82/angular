@@ -16,6 +16,11 @@ ccg.resolveTicket = function(ticket) {
 	ticket.resolvedOn = Date.now();
 };
 
+ccg.reopenTicket = function(ticket) {
+	ticket.resolved = false;
+	ticket.resolvedOn = null;
+};
+
 ccg.tickets = [];
 with (ccg) {
 	tickets.push(new ticket("Janeen Morvee","Clerk Office","Unable to scan into WyoREG on the front counter computer."));

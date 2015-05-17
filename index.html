@@ -28,7 +28,7 @@
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
-	<div class="container">
+	<div class="container" ng-cloak>
 		<div class="row">
 			<div class="col-lg-2 col-lg-offset-10 text-right">
 				<span>Technician: Justin Lane</span>
@@ -47,7 +47,7 @@
 						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Created On</td></tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="ticket in tickets | filter:{resolved:false}" ng-controller="TicketPanel as panel">
+						<tr ng-repeat="ticket in tickets | filter:{resolved:false}" ng-controller="TicketPanel as panel" ng-cloak>
 							<td class="ccg-col-user">{{ticket.user}}</td><td class="ccg-col-dept">{{ticket.department}}</td><td class="ccg-col-desc">{{ticket.description}}</td><td class="ccg-col-date">{{ticket.createdOn | date:'yyyy-MM-dd'}}</td><td class="ccg-col-btn"><button class="btn btn-primary" ng-click="resolveTicket(ticket)">Resolve</button></td></td>
 						</tr>
 					</tbody>
@@ -67,7 +67,7 @@
 						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Resolved On</td></tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="ticket in tickets | filter:{resolved:true}" ng-controller="TicketPanel as panel">
+						<tr ng-repeat="ticket in tickets | filter:{resolved:true}" ng-controller="TicketPanel as panel" ng-cloak>
 							<td class="ccg-col-user">{{ticket.user}}</td><td class="ccg-col-dept">{{ticket.department}}</td><td class="ccg-col-desc">{{ticket.description}}</td><td class="ccg-col-date">{{ticket.resolvedOn | date:'yyyy-MM-dd'}}</td><td class="ccg-col-btn"><button class="btn btn-warning" ng-click="reopenTicket(ticket)">Reopen</button></td></td>
 						</tr>
 					</tbody>

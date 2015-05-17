@@ -1,5 +1,7 @@
 (function(){
 	var app = angular.module("store",[]);
+
+	this.test = "Hello World!";
 	
 	app.controller("TicketSystemController",function() {
 		this.tickets = ccg.tickets;

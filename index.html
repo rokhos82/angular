@@ -34,14 +34,38 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-lg-4">
+				<h3>Open Tickets</h3>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-12 table-responsive">
 				<table class="table table-hover">
 					<thead>
-						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Created On</td><td>Resolved On</td></tr>
+						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Created On</td></tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="ticket in ticketCtrl.tickets" ng-controller="TicketPanel as panel">
-							<td>{{ticket.user}}</td><td>{{ticket.department}}</td><td>{{ticket.issue}}</td><td>{{ticket.createdOn | date:'yyyy-MM-dd'}}</td><td>{{ticket.resolvedOn | date:'yyyy-MM-dd'}}</td>
+						<tr ng-repeat="ticket in ticketCtrl.tickets | filter:{resolved:false}" ng-controller="TicketPanel as panel">
+							<td>{{ticket.user}}</td><td>{{ticket.department}}</td><td>{{ticket.description}}</td><td>{{ticket.createdOn | date:'yyyy-MM-dd'}}</td><td><button class="btn btn-primary">Resolve</button></td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<h3>Resolved Tickets</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr class="h4"><td>User</td><td>Department</td><td>Issue</td><td>Resolved On</td></tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="ticket in ticketCtrl.tickets | filter:{resolved:true}" ng-controller="TicketPanel as panel">
+							<td>{{ticket.user}}</td><td>{{ticket.department}}</td><td>{{ticket.description}}</td><td>{{ticket.resolvedOn | date:'yyyy-MM-dd'}}</td><td><button class="btn btn-warning">Reopen</button></td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -51,6 +75,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="rokhos.js"></script>
+	<script type="text/javascript" src="ccg.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>

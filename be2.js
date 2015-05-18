@@ -16,38 +16,55 @@
 			shield: "\\[(shield.+?)\\]",
  			beam: "\\[(beam.+?)\\]",
 			missile: "\\[(missile.+?)\\]",
-			commmand: "\\[(command.+?)\\]",
+			command: "\\[(command.+?)\\]",
 			target: "target\\s(\\d+)",
 			eccm: "eccm\\s(\\d+)",
 			defense: "defense\\s(\\d+)",
 			ecm: "ecm\\s(\\d+)",
 			resist: "resist\\s(\\d+)",
-			absorb: "absorb\\s(\\d+)"
+			absorb: "absorb\\s(\\d+)",
+			yield: "yield\\s(\\d+)"
 		};
 		
+		// --------------------------------------------------------------------
 		var checkForTag = function(str,regex) {
 			var rx = new RegExp(regex,"ig");
 			return rx.test(str);
 		};
 
+		// --------------------------------------------------------------------
 		var getTags = function(str,regex) {
+			rokhos.log("getTags: " + regex + ", " + str,rokhos.debug.levels.verbose);
 			var rx = new RegExp(regex,"ig");
 			var tags = []
-			var tag;
-			while(tag = rx.exec(str)) {
+			var tag = rx.exec(str);
+			while(tag !== null) {
 				tags.push(tag[1]);
+				tag = rx.exec(str);
 			}
 			return tags;
 		};
 
-		var parseOptionalTags = function(component,optionalTags) {
+		// --------------------------------------------------------------------
+		var parseOptionalTags = function(component,optionalTags,str) {
+			rokhos.log("parseOptionalTags: " + str);
+			for(var i in optionalTags) {
+				var tag = optionalTags[i];
+				var regex = new RegExp(regExp[tag],"ig");
+				var match;
+				if(match = regex.exec(str)) {
+					component[tag] = parseInt(match[1]);
+				}
+			}
 		};
 
+		// --------------------------------------------------------------------
 		var parseName = function(str) {
 			rokhos.log("parseName: " + str,rokhos.debug.levels.verbose);
 			return getTags(str,regExp.name)[0];
 		};
 
+		// --------------------------------------------------------------------
 		var parseHull = function(str) {
 			rokhos.log("parseHull: " + str,rokhos.debug.levels.verbose);
 
@@ -76,16 +93,7 @@
 				rokhos.log("unitParser:parseHull - Hull Component not properly constructed (" + hullTag + ")",rokhos.debug.levels.warning);
 			}
 
-			var optionalTags = ["defense","resist","absorb"];
-			for(var i in optionalTags) {
-				var tag = optionalTags[i];
-				var regex = new RegExp(regExp[tag],"ig");
-				var match;
-				if(match = regex.exec(hullTag)) {
-					rokhos.log(tag + ": " + match.toString(),rokhos.debug.levels.verbose);
-					hull[tag] = parseInt(match[1]);
-				}
-			};
+			parseOptionalTags(hull,["defense","resist","absorb"],hullTag);
 			
 			return hull;
 		};
@@ -109,19 +117,12 @@
 			}
 
 			// Get the optional data from the type component
-			var optionalTags = ["target","defense","flicker","resist","ecm","eccm"];
-			for(var i in optionalTags) {
-				var tag = optionalTags[i];
-				var regex = new RegExp(regExp[tag],"ig");
-				var match;
-				if(match = regex.exec(typeStr)) {
-					typeObj[tag] = parseInt(match[1]);
-				}
-			}
-
+			parseOptionalTags(typeObj,["target","defense","flicker","resist","ecm","eccm"],typeStr);
+			
 			return typeObj;
 		};
 
+		// --------------------------------------------------------------------
 		var parseShield = function(str) {
 			console.log("parseShield: " + str);
 			var shield = {
@@ -139,35 +140,42 @@
 				shield.max = parseInt(match[1]);
 			}
 
-			var optionalTags = ["defense","resist","absorb","flicker"];
-			for(var i in optionalTags) {
-				var tag = optionalTags[i];
-				var regex = new RegExp(regExp[tag],"ig");
-				var match;
-				if(match = regex.exec(shieldTag)) {
-					shield[tag] = parseInt(match[1]);
-				}
-			}
+			parseOptionalTags(shield,["defense","resist","absorb","flicker"],shieldTag);
 
 			return shield;
 		};
 
-		var parseBeams = function(str) {
+		// parseCommand -------------------------------------------------------
+		var parseCommand = function(str) {
+			rokhos.log("parseCommand: " + str,rokhos.debug.levels.verbose);
+			var command = {
+			};
 
+			var commandTag = getTags(str,regExp.command)[0];
+			rokhos.log("parseCommand: " + commandTag,rokhos.debug.levels.verbose);
+
+			parseOptionalTags(command,["target","defense","yield"],commandTag);
+
+			return command;
 		};
 
+		// parseBeams ---------------------------------------------------------
+		var parseBeams = function(str) {
+		};
+
+		// --------------------------------------------------------------------
 		// parseUnit ----------------------------------------------------------
 		var parseUnit = function(str) {
 			console.log("parseUnit: " + str);
 			var unit = {
 				name: "",
-				total: {}
 			};
 
 			unit.name = parseName(str);
 			unit.type = parseType(str);
 			unit.hull = parseHull(str);
 			unit.shield = parseShield(str);
+			unit.command = parseCommand(str);
 
 			return unit;
 		};
@@ -199,9 +207,9 @@
 	// unitPanel
 	///////////////////////////////////////////////////////////////////////////
 	app.controller("unitPanel",["$scope","unitParser",function($scope,unitParser) {
-		$scope.udl = "Pillar of Fire [starship target 15 eccm 10 defense 20][hull 6 9][shield 2][beam 6 target 15][missile 4 ammo 6]";
+		$scope.udl = "Pillar of Fire [starship target 15 eccm 10 defense 20][hull 6 9][shield 2][beam 6 target 15][missile 4 ammo 6][command target 5 defense 3]";
 
-		this.unitTotalDefense = function(unit) {
+		var unitTotalDefense = function(unit) {
 			var defense = 0;
 			for(var key in unit) {
 				if(key !== "total") {
@@ -213,7 +221,7 @@
 			unit.total.defense = defense;
 		}
 
-		this.unitTotalTarget = function(unit) {
+		var unitTotalTarget = function(unit) {
 			var target = 0;
 			for(var key in unit) {
 				if(key !== "total") {
@@ -227,8 +235,9 @@
 
 		this.parseUnit = function(udl) {
 			var unit = unitParser.parseUnit(udl);
-			this.unitTotalDefense(unit);
-			this.unitTotalTarget(unit);
+			unit.total = {};
+			unitTotalDefense(unit);
+			unitTotalTarget(unit);
 
 			$scope.unit = unit;
 		}

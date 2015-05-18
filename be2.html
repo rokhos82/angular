@@ -28,17 +28,16 @@
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
+	<!-- Unit Panel -->
 	<div class="container" ng-show="state === states.units" ng-controller="unitPanel as panel">
 		<textarea class="be2-udl-input" ng-model="udl" ng-change="panel.parseUnit(udl)"></textarea>
 		<div class="row">
-			<div class="col-lg-12">
-				Name: {{unit.name}}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4 col-med-6 col-sm-12 col-xs-12">
+			<div class="col-lg-3 col-med-3 col-sm-12 col-xs-12">
 				<table class="be2-unit">
 					<caption>Unit</caption>
+					<tr>
+						<td>Name:</td><td>{{unit.name}}</td>
+					</tr>
 					<tr>
 						<td>Type:</td><td>{{unit.type.class}}</td>
 					</tr>
@@ -62,7 +61,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="col-lg-4 col-med-6 col-sm-12 col-xs-12">
+			<div class="col-lg-3 col-med-3 col-sm-12 col-xs-12">
 				<table class="be2-unit">
 					<caption>Hull</caption>
 					<tr>
@@ -82,31 +81,46 @@
 					</tr>
 				</table>
 			</div>
-			<div class="col-lg-4 col-med-6 col-sm-12 col-xs-12">
+			<div class="col-lg-3 col-med-3 col-sm-12 col-xs-12">
 				<table class="be2-unit">
 					<caption>Shield</caption>
 					<tr><td class="text-right">Shield:</td><td>{{unit.shield.max}}</td></tr>
 				</table>
 			</div>
+			<div class="col-lg-3 col-med-3 col-sm-12 col-xs-12">
+				<table class="be2-unit">
+					<caption>Command</caption>
+					<tr ng-show="unit.command.target">
+						<td>Target:</td><td>{{unit.command.target}}</td>
+					</tr>
+					<tr ng-show="unit.command.defense">
+						<td>Defense:</td><td>{{unit.command.defense}}</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-med-12 col-sm-12-col-xs-12">
 				<table class="be2-unit">
 					<caption>Beams/Railguns</caption>
+					<tr>
+					</tr>
 				</table>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-med-12 col-sm-12-col-xs-12">
 				<table class="be2-unit">
 					<caption>Missiles/Engery Torpedos</caption>
+					<tr>
+					</tr>
 				</table>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
 				<table class="be2-unit">
-					<caption>Stat Totals:</caption>
+					<caption>Stat Totals</caption>
 					<tr>
 						<td>Target:</td><td>{{unit.total.target}}</td>
 					</tr>
@@ -117,9 +131,11 @@
 			</div>
 		</div>
 	</div>
+	<!-- Fleet Panel -->
 	<div class="container" ng-show="state === states.fleets">
 		<p class="lead">This is the fleets interface.</p>
 	</div>
+	<!-- Combat Panel -->
 	<div class="container" ng-show="state === states.combat">
 		<p class="lead">This is the main interface for the combat engine.</p>
 	</div>

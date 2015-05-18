@@ -17,10 +17,13 @@ table.be2-unit td {
 
 table.be2-unit tr td:first-child {
 	text-align: right;
+	color: lightcyan;
 }
 
 caption {
-	color: lightgray;
+	color: darkcyan;
 	margin: 0;
 	padding: 0;
+	text-decoration: underline;
+	font-size: 12pt;
 }

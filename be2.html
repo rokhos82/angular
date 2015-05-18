@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="store" lang="en">
+<html ng-app="battleEngine2" lang="en">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css\bootstrap.min.css" />
@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css\be2.css" />
 	<title>BattleEngine 2</title>
 </head>
-<body>
+<body ng-controller="be2Main as main">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -21,24 +21,58 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Combat</a></li>
-					<li><a href="#about">Fleets</a></li>
-					<li><a href="#contact">Units</a></li>
+					<li ng-class="{active:state === states.combat}"><a href="" ng-click="state=states.combat">Combat</a></li>
+					<li ng-class="{active:state === states.fleets}"><a href="" ng-click="state=states.fleets">Fleets</a></li>
+					<li ng-class="{active:state === states.units}"><a href="" ng-click="state=states.units">Units</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
-	<div class="container" ng-cloak>
-		<input type="text" ng-model="udl" />
+	<div class="container" ng-show="state === states.units">
+		<textarea class="be2-udl-input" ng-model="udl" ng-change="unit = parseUnit(udl)"></textarea>
 		<div class="row">
-			<div class="col-lg-6">
-				{{udl}}
+			<div class="col-lg-12">
+				Unit Name: {{unit.name}}
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				Unit Tag:
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<table class="be2-unit">
+					<tr><td class="text-right">Base Hull:</td><td>{{unit.hull.base}}</td></tr>
+					<tr><td class="text-right">Final Hull:</td><td>{{unit.hull.final}}</td></tr>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				Shield Tags:
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				Beam Tags:
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				Missile Tags:
+			</div>
+		</div>
+	</div>
+	<div class="container" ng-show="state === states.fleets">
+		<p class="lead">This is the fleets interface.</p>
+	</div>
+	<div class="container" ng-show="state === states.combat">
+		<p class="lead">This is the main interface for the combat engine.</p>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="angular.min.js"></script>
-	<script type="text/javascript" src="rokhos.js"></script>
+	<script type="text/javascript" src="be2.js"></script>
 </body>
 </html>

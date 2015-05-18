@@ -147,7 +147,7 @@
 
 		// parseCommand -------------------------------------------------------
 		var parseCommand = function(str) {
-			rokhos.log("parseCommand: " + str,rokhos.debug.levels.verbose);
+			rokhos.log("parseCommand: " + str,rokhos.debug.levels.info);
 			var command = {
 			};
 
@@ -161,6 +161,18 @@
 
 		// parseBeams ---------------------------------------------------------
 		var parseBeams = function(str) {
+			rokhos.log("parseBeams: " + str,rokhos.debug.levels.info);
+			var beams = [];
+
+			var beamTags = getTags(str,regExp.beam);
+
+			for(var i in beamTags) {
+				var beam = {
+					volley: 0
+				};
+
+				beams.push(beam);
+			}
 		};
 
 		// --------------------------------------------------------------------
@@ -209,6 +221,7 @@
 	app.controller("unitPanel",["$scope","unitParser",function($scope,unitParser) {
 		$scope.udl = "Pillar of Fire [starship target 15 eccm 10 defense 20][hull 6 9][shield 2][beam 6 target 15][missile 4 ammo 6][command target 5 defense 3]";
 
+		// --------------------------------------------------------------------
 		var unitTotalDefense = function(unit) {
 			var defense = 0;
 			for(var key in unit) {
@@ -221,6 +234,7 @@
 			unit.total.defense = defense;
 		}
 
+		// --------------------------------------------------------------------
 		var unitTotalTarget = function(unit) {
 			var target = 0;
 			for(var key in unit) {
@@ -233,6 +247,7 @@
 			unit.total.target = target;
 		};
 
+		// --------------------------------------------------------------------
 		this.parseUnit = function(udl) {
 			var unit = unitParser.parseUnit(udl);
 			unit.total = {};

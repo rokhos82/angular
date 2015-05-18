@@ -14,3 +14,13 @@ table.be2-unit {
 table.be2-unit td {
 	padding-left: 5px;
 }
+
+table.be2-unit tr td:first-child {
+	text-align: right;
+}
+
+caption {
+	color: lightgray;
+	margin: 0;
+	padding: 0;
+}

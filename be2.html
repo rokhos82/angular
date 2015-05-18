@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css\be2.css" />
 	<title>BattleEngine 2</title>
 </head>
-<body ng-controller="be2Main as main">
+<body ng-controller="mainCtrl as main">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -28,39 +28,92 @@
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
-	<div class="container" ng-show="state === states.units">
-		<textarea class="be2-udl-input" ng-model="udl" ng-change="unit = parseUnit(udl)"></textarea>
+	<div class="container" ng-show="state === states.units" ng-controller="unitPanel as panel">
+		<textarea class="be2-udl-input" ng-model="udl" ng-change="panel.parseUnit(udl)"></textarea>
 		<div class="row">
 			<div class="col-lg-12">
-				Unit Name: {{unit.name}}
+				Name: {{unit.name}}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-12">
-				Unit Tag:
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-med-6 col-sm-12 col-xs-12">
 				<table class="be2-unit">
-					<tr><td class="text-right">Base Hull:</td><td>{{unit.hull.base}}</td></tr>
-					<tr><td class="text-right">Final Hull:</td><td>{{unit.hull.final}}</td></tr>
+					<caption>Unit</caption>
+					<tr>
+						<td>Type:</td><td>{{unit.type.class}}</td>
+					</tr>
+					<tr ng-show="unit.type.target">
+						<td>Target:</td><td>{{unit.type.target}}</td>
+					</tr>
+					<tr ng-show="unit.type.eccm">
+						<td>ECCM:</td><td>{{unit.type.eccm}}</td>
+					</tr>
+					<tr ng-show="unit.type.defense">
+						<td>Defense:</td><td>{{unit.type.defense}}</td>
+					</tr>
+					<tr ng-show="unit.type.ecm">
+						<td>ECM:</td><td>{{unit.type.ecm}}</td>
+					</tr>
+					<tr ng-show="unit.type.resist">
+						<td>Resist:</td><td>{{unit.type.resist}}</td>
+					</tr>
+					<tr ng-show="unit.type.flicker">
+						<td>Flicker:</td><td>{{unit.type.flicker}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-lg-4 col-med-6 col-sm-12 col-xs-12">
+				<table class="be2-unit">
+					<caption>Hull</caption>
+					<tr>
+						<td>Base Hull:</td><td>{{unit.hull.base}}</td>
+					</tr>
+					<tr>
+						<td>Final Hull:</td><td>{{unit.hull.final}}</td>
+					</tr>
+					<tr ng-show="unit.hull.defense">
+						<td>Defense:</td><td>{{unit.hull.defense}}</td>
+					</tr>
+					<tr ng-show="unit.hull.resist">
+						<td>Resist:</td><td>{{unit.hull.resist}}</td>
+					</tr>
+					<tr ng-show="unit.hull.absorb">
+						<td>Absorb:</td><td>{{unit.hull.absorb}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-lg-4 col-med-6 col-sm-12 col-xs-12">
+				<table class="be2-unit">
+					<caption>Shield</caption>
+					<tr><td class="text-right">Shield:</td><td>{{unit.shield.max}}</td></tr>
 				</table>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				Shield Tags:
+				<table class="be2-unit">
+					<caption>Beams/Railguns</caption>
+				</table>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				Beam Tags:
+				<table class="be2-unit">
+					<caption>Missiles/Engery Torpedos</caption>
+				</table>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				Missile Tags:
+				<table class="be2-unit">
+					<caption>Stat Totals:</caption>
+					<tr>
+						<td>Target:</td><td>{{unit.total.target}}</td>
+					</tr>
+					<tr>
+						<td>Defense:</td><td>{{unit.total.defense}}</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -70,6 +123,7 @@
 	<div class="container" ng-show="state === states.combat">
 		<p class="lead">This is the main interface for the combat engine.</p>
 	</div>
+	<script type="text/javascript" src="rokhos.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="angular.min.js"></script>

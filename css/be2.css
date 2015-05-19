@@ -27,6 +27,10 @@ table.be2-unit-weapon td {
 	padding-left: 5px;
 }
 
+table.be2-unit-weapon thead td {
+	color: lightcyan;
+}
+
 caption {
 	color: darkcyan;
 	margin: 0;

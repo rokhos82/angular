@@ -23,7 +23,9 @@
 			ecm: "ecm\\s(\\d+)",
 			resist: "resist\\s(\\d+)",
 			absorb: "absorb\\s(\\d+)",
-			yield: "yield\\s(\\d+)"
+			yield: "yield\\s(\\d+)",
+			dis: "(dis)",
+			pen: "(pen)"
 		};
 		
 		// --------------------------------------------------------------------
@@ -54,6 +56,9 @@
 				var match;
 				if(match = regex.exec(str)) {
 					component[tag] = parseInt(match[1]);
+					if(isNaN(component[tag])) {
+						component[tag] = true;
+					}
 				}
 			}
 		};
@@ -167,12 +172,24 @@
 			var beamTags = getTags(str,regExp.beam);
 
 			for(var i in beamTags) {
+				var tag = beamTags[i];
+				rokhos.log("parseBeams: " + tag,rokhos.debug.levels.verbose);
 				var beam = {
 					volley: 0
 				};
 
+				var regex = /^beam\s(\d+)/ig;
+				var match = regex.exec(tag);
+				if(match) {
+					beam.volley = parseInt(match[1]);
+				}
+
+				parseOptionalTags(beam,["target","yield","dis","pen"],tag);
+
 				beams.push(beam);
 			}
+
+			return beams;
 		};
 
 		// --------------------------------------------------------------------
@@ -188,6 +205,7 @@
 			unit.hull = parseHull(str);
 			unit.shield = parseShield(str);
 			unit.command = parseCommand(str);
+			unit.beams = parseBeams(str);
 
 			return unit;
 		};
@@ -251,8 +269,8 @@
 		this.parseUnit = function(udl) {
 			var unit = unitParser.parseUnit(udl);
 			unit.total = {};
-			unitTotalDefense(unit);
-			unitTotalTarget(unit);
+			//unitTotalDefense(unit);
+			//unitTotalTarget(unit);
 
 			$scope.unit = unit;
 		}

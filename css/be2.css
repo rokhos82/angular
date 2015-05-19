@@ -20,6 +20,13 @@ table.be2-unit tr td:first-child {
 	color: lightcyan;
 }
 
+table.be2-unit-weapon {
+}
+
+table.be2-unit-weapon td {
+	padding-left: 5px;
+}
+
 caption {
 	color: darkcyan;
 	margin: 0;

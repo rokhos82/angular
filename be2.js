@@ -30,7 +30,8 @@
 			delay: "delay\\s+(\\d+)", // Number of turns to delay the component
 			rof: "rof\\s+(\\d+)", // Number of times a weapon fires per turn
 			cooldown: "cooldown\\s+(\\d+)", // Turns between weapon activation
-			flicker: "flicker\\s+(\\d+)"
+			flicker: "flicker\\s+(\\d+)",
+			datalink: "datalink\\s+(\\w+)" // Add the component to the datalink group specified by label
 		};
 		
 		// --------------------------------------------------------------------

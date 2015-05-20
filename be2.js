@@ -17,19 +17,20 @@
  			beam: "\\[\\s*(beam\\s+\\d+.+?)\\]",
 			missile: "\\[\\s*(missile\\s+\\d+\\s+\\d+.+?)\\]",
 			command: "\\[\\s*(command.+?)\\]",
-			target: "target\\s(\\d+)",
-			eccm: "eccm\\s(\\d+)",
-			defense: "defense\\s(\\d+)",
-			ecm: "ecm\\s(\\d+)",
-			resist: "resist\\s(\\d+)",
-			absorb: "absorb\\s(\\d+)",
-			yield: "yield\\s(\\d+)",
-			dis: "(dis)",
-			pen: "(pen)",
-			ammo: "ammo\\s(\\d+)", // Number of times a weapon can activate
-			delay: "delay\\s(\\d+)", // Number of turns to delay the component
-			rof: "rof\\s(\\d+)", // Number of times a weapon fires per turn
-			cooldown: "cooldown\\s(\\d+)" // Turns between weapon activation
+			target: "target\\s+(\\d+)",
+			eccm: "eccm\\s+(\\d+)",
+			defense: "defense\\s+(\\d+)",
+			ecm: "ecm\\s+(\\d+)", // Get the ecm attribute for the component
+			resist: "resist\\s+(\\d+)", // Get the resist attribute for the component
+			absorb: "absorb\\s+(\\d+)", // Get the absorb (AR/SR) attribute for the component
+			yield: "yield\\s+(\\d+)", // Get the yield attribute for the weapon
+			dis: "(dis)", // The weapon has the DIS special ability
+			pen: "(pen)", // The weapon has the PEN special ability
+			ammo: "ammo\\s+(\\d+)", // Number of times a weapon can activate
+			delay: "delay\\s+(\\d+)", // Number of turns to delay the component
+			rof: "rof\\s+(\\d+)", // Number of times a weapon fires per turn
+			cooldown: "cooldown\\s+(\\d+)", // Turns between weapon activation
+			flicker: "flicker\\s+(\\d+)"
 		};
 		
 		// --------------------------------------------------------------------

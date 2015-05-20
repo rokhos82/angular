@@ -103,25 +103,29 @@
 			<div class="col-lg-12 col-med-12 col-sm-12-col-xs-12">
 				<table class="be2-unit-weapon">
 					<caption>Beams/Railguns</caption>
-					<tr>
-						<thead>
-							<tr><td>Volley</td><td>Target</td><td>Yield</td><td>dis</td><td>pen</td></tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="beam in unit.beams">
-								<td>{{beam.volley}}</td><td>{{beam.target}}</td><td>{{beam.yield}}</td><td>{{beam.dis}}</td><td>{{beam.pen}}</td></tr>
-							</tr>
-						</tbody>
-					</tr>
+					<thead>
+						<tr><td>Volley</td><td>Target</td><td>Yield</td><td>dis</td><td>pen</td></tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="beam in unit.beams">
+							<td>{{beam.volley}}</td><td>{{beam.target}}</td><td>{{beam.yield}}</td><td>{{beam.dis}}</td><td>{{beam.pen}}</td></tr>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12 col-med-12 col-sm-12-col-xs-12">
-				<table class="be2-unit">
-					<caption>Missiles/Engery Torpedos</caption>
-					<tr>
-					</tr>
+				<table class="be2-unit-weapon">
+					<caption>Missiles/Torpedos</caption>
+					<thead>
+						<tr><td>Size</td><td>Packet</td><td>Ammo</td></tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="missile in unit.missiles">
+							<td>{{missile.size}}</td><td>{{missile.packet}}</td><td>{{missile.ammo}}</td></tr>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

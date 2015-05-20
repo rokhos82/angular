@@ -25,7 +25,11 @@
 			absorb: "absorb\\s(\\d+)",
 			yield: "yield\\s(\\d+)",
 			dis: "(dis)",
-			pen: "(pen)"
+			pen: "(pen)",
+			ammo: "ammo\\s(\\d+)", // Number of times a weapon can activate
+			delay: "delay\\s(\\d+)", // Number of turns to delay the component
+			rof: "rof\\s(\\d+)", // Number of times a weapon fires per turn
+			cooldown: "cooldown\\s(\\d+)" // Turns between weapon activation
 		};
 		
 		// --------------------------------------------------------------------
@@ -184,13 +188,43 @@
 					beam.volley = parseInt(match[1]);
 				}
 
-				parseOptionalTags(beam,["target","yield","dis","pen"],tag);
+				parseOptionalTags(beam,["target","yield","dis","pen","ammo"],tag);
 
 				beams.push(beam);
 			}
 
 			return beams;
 		};
+
+		// parseMissiles ------------------------------------------------------
+		var parseMissiles = function(str) {
+			rokhos.log("parseMissiles: " + str,rokhos.debug.levels.info);
+			var missiles = [];
+
+			var missileTags = getTags(str,regExp.missile);
+
+			for(var i in missileTags) {
+				var tag = missileTags[i];
+				rokhos.log("parseMissiles: " + tag,rokhos.debug.levels.verbose);
+				var missile = {
+					packet: 0,
+					size: 0
+				};
+
+				var regex = /^missile\s+(\d+)\s+(\d+)/ig;
+				var match = regex.exec(tag);
+				if(match) {
+					missile.packet = match[2];
+					missile.size = match[1];
+				}
+
+				parseOptionalTags(missile,["target","yield","dis","pen","ammo"],tag);
+
+				missiles.push(missile);
+			}
+
+			return missiles;
+		}
 
 		// --------------------------------------------------------------------
 		// parseUnit ----------------------------------------------------------
@@ -206,6 +240,7 @@
 			unit.shield = parseShield(str);
 			unit.command = parseCommand(str);
 			unit.beams = parseBeams(str);
+			unit.missiles = parseMissiles(str);
 
 			return unit;
 		};

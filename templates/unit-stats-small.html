@@ -1,2 +1,15 @@
 <div class="row">
+	<table class="be-unit">
+		<caption>{{unit.name}} Info</caption>
+		<tbody>
+			<tr><td colspan="2">General</td></tr>
+			<tr><td>Base Hull:</td></tr>
+			<tr><td>Final Hull:</td></tr>
+			<tr><td>Shield</td></tr>
+			<tr><td colspan="2">Weapons</td></tr>
+			<tr><td>Volley</td><td>Target</td><td>Yield</td><td>Specials</td></tr>
+			<tr ng-repeat="beam in unit.beams"><td></td></tr>
+			<tr ng-repeat="missile in unit.missiles"><td></td></tr>
+		</tbody>
+	</table>
 </div>

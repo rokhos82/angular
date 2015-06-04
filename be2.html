@@ -31,6 +31,7 @@
 	<!-- Unit Panel -->
 	<div class="container" ng-show="state === states.units" ng-controller="unitPanel as panel">
 		<textarea class="be2-udl-input" ng-model="udl" ng-change="panel.parseUnit(udl)"></textarea>
+		<unit-stats></unit-stats>
 	</div>
 	<!-- Fleet Panel -->
 	<div class="container" ng-show="state === states.fleets">
@@ -45,5 +46,6 @@
     <script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="angular.min.js"></script>
 	<script type="text/javascript" src="be2.js"></script>
+	<script type="text/javascript" src="be2-units.js"></script>
 </body>
 </html>

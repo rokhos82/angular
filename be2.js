@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module("battleEngine2",[]);
+	var app = angular.module("be2",[]);
 
 	///////////////////////////////////////////////////////////////////////////
 	// fleetParser
@@ -10,7 +10,7 @@
 	///////////////////////////////////////////////////////////////////////////
 	// mainCtrl
 	///////////////////////////////////////////////////////////////////////////
-	app.controller("mainCtrl",["$scope","unitParser",function($scope,unitParser) {
+	app.controller("mainCtrl",["$scope",function($scope) {
 		$scope.states = {
 			combat: "combat",
 			fleets: "fleets", 

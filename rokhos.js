@@ -40,3 +40,12 @@ rokhos.log = function(msg,lvl) {
 		console.log(msg);
 	}
 };
+
+(function(){
+	var app = angular.module("rokhos");
+
+	app.factory("log",function(){
+		var log = {};
+		return log;
+	});
+})();
